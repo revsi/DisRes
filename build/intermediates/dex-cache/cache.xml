@@ -16,18 +16,18 @@
         <dex dex="/home/rajat/work/android/DisRes/app/build/intermediates/pre-dexed/debug/classes-20d7c1d40fd49f58067044622947500092949567.jar" />
     </item>
     <item
-        jar="/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
-        <dex dex="/home/rajat/work/android/DisRes/app/build/intermediates/pre-dexed/debug/classes-9deada6ec2b3d24e2085e21841c23b2dd6d040ad.jar" />
-    </item>
-    <item
         jar="/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
         <dex dex="/home/rajat/work/android/DisRes/app/build/intermediates/pre-dexed/debug/classes-7395ee72b0d21011e82a9d8441ec8c38f12ae52d.jar" />
+    </item>
+    <item
+        jar="/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/home/rajat/work/android/DisRes/app/build/intermediates/pre-dexed/debug/classes-9deada6ec2b3d24e2085e21841c23b2dd6d040ad.jar" />
     </item>
     <item
         jar="/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"

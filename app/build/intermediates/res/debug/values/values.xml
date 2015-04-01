@@ -97,6 +97,9 @@ available. Please contact the developer for assistance.</string>
     <eat-comment/>
     <string name="drawer_close">Close Options</string>
     <string name="drawer_open">Open Options</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+            AIzaSyCwW9-JFUGeFCHjrjke2-snaHGYf1QbMi4
+    </string>
     <string name="hello_world">Hello world!</string>
     <!-- From: file:/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/res/values/admob_strings.xml -->
     <eat-comment/>

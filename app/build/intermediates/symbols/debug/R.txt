@@ -126,7 +126,7 @@ int id holo_light 0x7f0c0009
 int id hybrid 0x7f0c0004
 int id imageViewIcon 0x7f0c0022
 int id left_drawer 0x7f0c001a
-int id mapView 0x7f0c0021
+int id mapview 0x7f0c0021
 int id match_parent 0x7f0c000f
 int id monochrome 0x7f0c0017
 int id none 0x7f0c0000
@@ -187,10 +187,11 @@ int string create_calendar_title 0x7f090023
 int string decline 0x7f090024
 int string drawer_close 0x7f090025
 int string drawer_open 0x7f090026
-int string hello_world 0x7f090027
-int string store_picture_message 0x7f090028
-int string store_picture_title 0x7f090029
-int string wallet_buy_button_place_holder 0x7f09002a
+int string google_maps_key 0x7f090027
+int string hello_world 0x7f090028
+int string store_picture_message 0x7f090029
+int string store_picture_title 0x7f09002a
+int string wallet_buy_button_place_holder 0x7f09002b
 int style AppBaseTheme 0x7f0a0000
 int style AppTheme 0x7f0a0001
 int style Theme_IAPTheme 0x7f0a0002

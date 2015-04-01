@@ -451,7 +451,7 @@ containing a value of this type.
         public static final int hybrid=0x7f0c0004;
         public static final int imageViewIcon=0x7f0c0022;
         public static final int left_drawer=0x7f0c001a;
-        public static final int mapView=0x7f0c0021;
+        public static final int mapview=0x7f0c0021;
         public static final int match_parent=0x7f0c000f;
         public static final int monochrome=0x7f0c0017;
         public static final int none=0x7f0c0000;
@@ -522,10 +522,11 @@ containing a value of this type.
         public static final int decline=0x7f090024;
         public static final int drawer_close=0x7f090025;
         public static final int drawer_open=0x7f090026;
-        public static final int hello_world=0x7f090027;
-        public static final int store_picture_message=0x7f090028;
-        public static final int store_picture_title=0x7f090029;
-        public static final int wallet_buy_button_place_holder=0x7f09002a;
+        public static final int google_maps_key=0x7f090027;
+        public static final int hello_world=0x7f090028;
+        public static final int store_picture_message=0x7f090029;
+        public static final int store_picture_title=0x7f09002a;
+        public static final int wallet_buy_button_place_holder=0x7f09002b;
     }
     public static final class style {
         /** 

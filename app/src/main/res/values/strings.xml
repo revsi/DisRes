@@ -14,5 +14,8 @@
 
     <string name="drawer_open">Open Options</string>
     <string name="drawer_close">Close Options</string>
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+            AIzaSyCwW9-JFUGeFCHjrjke2-snaHGYf1QbMi4
+    </string>
 
 </resources>
