@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
  
     // used to store app title
     private CharSequence mTitle;
-    
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

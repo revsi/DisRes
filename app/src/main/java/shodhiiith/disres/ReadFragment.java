@@ -1,9 +1,8 @@
 package shodhiiith.disres;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -38,71 +36,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.widget.Toast.*;
-
 import shodhiiith.disres.R;
 
 public class ReadFragment extends Fragment {
 
+    private MapView mMapView;
+    private GoogleMap mMap;
+    private Bundle mBundle;
 
-    public ReadFragment() {
-    }
-
-
-
-    MapView mapView;
-    GoogleMap map;
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private List<String> buildingTypes = Arrays.asList("Hospital", "Fire Brigades", "Rescue");
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)          {
-        View v = inflater.inflate(R.layout.fragment_read, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View inflatedView = inflater.inflate(R.layout.fragment_read, container, false);
 
-        // Gets the MapView from the XML layout and creates it
-        mapView = (MapView) v.findViewById(R.id.mapview);
-        mapView.onCreate(savedInstanceState);
+        MapsInitializer.initialize(getActivity());
 
-        // Gets to GoogleMap from the MapView and does initialization stuff
-        map = mapView.getMap();
-        map.getUiSettings().setMyLocationButtonEnabled(false);
-        map.setMyLocationEnabled(true);
+        mMapView = (MapView) inflatedView.findViewById(R.id.mapview);
+        mMapView.onCreate(mBundle);
+        setUpMapIfNeeded(inflatedView);
 
-        // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
-        MapsInitializer.initialize(this.getActivity());
-
-        // Updates the location and zoom of the MapView
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
-        map.animateCamera(cameraUpdate);
-
-        return v;
+        return inflatedView;
     }
 
     @Override
-    public void onResume() {
-        mapView.onResume();
-        super.onResume();
-      //  setUpMapIfNeeded();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBundle = savedInstanceState;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-   /* private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
+    private void setUpMapIfNeeded(View inflatedView) {
         if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
+            mMap = ((MapView) inflatedView.findViewById(R.id.mapview)).getMap();
             if (mMap != null) {
                 mMap.setMyLocationEnabled(true);
                 mMap.setBuildingsEnabled(true);
@@ -111,7 +76,9 @@ public class ReadFragment extends Fragment {
             }
         }
     }
+
     private void setUpMap() {
+        /*start temp locations*/
         Address spot1 = new Address(null);
         spot1.setLatitude(17.4456);
         spot1.setLongitude(78.3497);
@@ -133,6 +100,7 @@ public class ReadFragment extends Fragment {
         Map<String, List<Address>> hotSpots = new HashMap<String, List<Address>>();
         hotSpots.put("Affected", affectedAreas);
         hotSpots.put("Hospital", healthCare);
+        /*end tmp locations*/
         //Toast.makeText(getApplicationContext(), hotSpots.values().toString(), Toast.LENGTH_LONG).show();
         for (Map.Entry<String, List<Address>> entry : hotSpots.entrySet()) {
             String key = entry.getKey();
@@ -165,12 +133,30 @@ public class ReadFragment extends Fragment {
                 //Toast.makeText(getApplicationContext(), .toString(), Toast.LENGTH_LONG).show();
                 @Override
                 public void onMyLocationChange(Location arg0) {
+                    // TODO Auto-generated method stub
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 14.0f);
                     mMap.moveCamera(cameraUpdate);
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });
         }
-    }*/
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mMapView.onDestroy();
+        super.onDestroy();
+    }
 }
