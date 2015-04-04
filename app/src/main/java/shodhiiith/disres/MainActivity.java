@@ -49,8 +49,8 @@ public class MainActivity extends Activity {
         // list the drawer items
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
         
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "Report Disaster");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "Emergency Info");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "SOS");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "Display Organizations");
         drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Submit Info");
         
         // Pass the folderData to our ListView adapter

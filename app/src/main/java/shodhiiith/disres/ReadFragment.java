@@ -134,8 +134,8 @@ public class ReadFragment extends Fragment {
                 @Override
                 public void onMyLocationChange(Location arg0) {
                     // TODO Auto-generated method stub
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 14.0f);
-                    mMap.moveCamera(cameraUpdate);
+                    //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 14.0f);
+                    //mMap.moveCamera(cameraUpdate);
                     //mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
                 }
             });

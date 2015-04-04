@@ -3,8 +3,8 @@
     <!-- From: file:/home/rajat/work/android/DisRes/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string-array name="navigation_drawer_items_array">
-        <item>Report Disaster</item>
-        <item>Emergency Info</item>
+        <item>SOS</item>
+        <item>Display Organizations</item>
         <item>Submit Info</item>
     </string-array>
     <!-- From: file:/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
