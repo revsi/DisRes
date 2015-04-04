@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
@@ -53,6 +54,7 @@ public class HelpFragment extends Fragment {
     private MapView mMapView;
     private GoogleMap mMap;
     private Bundle mBundle;
+    Bitmap bm;;
 
     public HelpFragment() {
 	}
@@ -122,7 +124,7 @@ public class HelpFragment extends Fragment {
         super.onDestroy();
     }
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
+        final CharSequence[] items = { "Take Photo", "Choose from Gallery",
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -165,13 +167,14 @@ public class HelpFragment extends Fragment {
                     }
                 }
                 try {
-                    Bitmap bm;
+
                     BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
 
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
-
-// bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
+                    Bitmap d = new BitmapDrawable(getActivity().getResources() , f.getAbsolutePath()).getBitmap();
+                    int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
+                    bm = Bitmap.createScaledBitmap(bm, 512, nh, true);
                     ivImage.setImageBitmap(bm);
 
                     String path = android.os.Environment
@@ -184,7 +187,7 @@ public class HelpFragment extends Fragment {
                             .currentTimeMillis()) + ".jpg");
                     try {
                         fOut = new FileOutputStream(file);
-                        bm.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+                        bm.compress(Bitmap.CompressFormat.JPEG, 70, fOut);
                         fOut.flush();
                         fOut.close();
                     } catch (FileNotFoundException e) {

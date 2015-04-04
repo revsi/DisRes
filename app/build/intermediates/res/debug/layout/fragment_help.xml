@@ -87,14 +87,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp" >
+                android:padding="10sp" >
 
                 <ImageView
                     android:id="@+id/ivImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_camera"
-                    android:layout_marginBottom="15sp"/>
+                    android:layout_marginBottom="10sp"/>
 
             </LinearLayout>
 
@@ -103,11 +103,12 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Your location"
-                android:id="@+id/textView5" />
+                android:id="@+id/textView5"
+                android:layout_marginBottom="20sp"/>
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapview2"
-                android:layout_width="300sp"
+                android:layout_width="fill_parent"
                 android:layout_height="300sp"
                 android:layout_marginBottom="20sp"/>
 
