@@ -10,6 +10,8 @@
         <item>SOS</item>
         <item>Display Organizations</item>
         <item>Submit Info</item>
+        <item>Search Organizations</item>
+
     </string-array>
 
     <string name="drawer_open">Open Options</string>

@@ -6,6 +6,8 @@
         <item>SOS</item>
         <item>Display Organizations</item>
         <item>Submit Info</item>
+        <item>Search Organizations</item>
+
     </string-array>
     <!-- From: file:/home/rajat/work/android/DisRes/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>

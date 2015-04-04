@@ -47,11 +47,12 @@ public class MainActivity extends Activity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         
         // list the drawer items
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[4];
         
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_copy, "SOS");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_refresh, "Display Organizations");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_share, "Submit Info");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_sos, "SOS");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_display, "Display Organizations");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_submit, "Submit Info");
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_search, "Search Organizations");
         
         // Pass the folderData to our ListView adapter
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
@@ -156,6 +157,9 @@ public class MainActivity extends Activity {
             break;
         case 2:
             fragment = new HelpFragment();
+            break;
+        case 3:
+            fragment = new SearchFragment();
             break;
  
         default:
