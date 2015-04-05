@@ -1,42 +1,31 @@
 package shodhiiith.disres;
 
 import android.app.Fragment;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import shodhiiith.disres.R;
 
 public class ReadFragment extends Fragment {
 
@@ -44,7 +33,7 @@ public class ReadFragment extends Fragment {
     private GoogleMap mMap;
     private Bundle mBundle;
 
-    private List<String> buildingTypes = Arrays.asList("Hospital", "Fire Brigades", "Rescue");
+    private List<String> buildingTypes = Arrays.asList("Hospital", "Fire Brigade", "Rescue", "Blood Bank", "Police", "NGO & Rescue");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,31 +66,9 @@ public class ReadFragment extends Fragment {
         }
     }
 
+
     private void setUpMap() {
-        /*start temp locations*/
-        Address spot1 = new Address(null);
-        spot1.setLatitude(17.4456);
-        spot1.setLongitude(78.3497);
-        Address spot2 = new Address(null);
-        spot2.setLatitude(17.4456);
-        spot2.setLongitude(78.3427);
-        Address spot3 = new Address(null);
-        spot3.setLatitude(17.44219);
-        spot3.setLongitude(78.3587);
-        Address spot4 = new Address(null);
-        spot4.setLatitude(17.4502415);
-        spot4.setLongitude(78.364239);
-        List<Address> affectedAreas = new ArrayList<Address>();
-        affectedAreas.add(spot1);
-        affectedAreas.add(spot2);
-        List<Address> healthCare = new ArrayList<Address>();
-        healthCare.add(spot3);
-        healthCare.add(spot4);
-        Map<String, List<Address>> hotSpots = new HashMap<String, List<Address>>();
-        hotSpots.put("Affected", affectedAreas);
-        hotSpots.put("Hospital", healthCare);
-        /*end tmp locations*/
-        //Toast.makeText(getApplicationContext(), hotSpots.values().toString(), Toast.LENGTH_LONG).show();
+        Map<String, List<Address>> hotSpots = new HardData().getHardCodedData();
         for (Map.Entry<String, List<Address>> entry : hotSpots.entrySet()) {
             String key = entry.getKey();
             List<Address> value = entry.getValue();
@@ -110,9 +77,24 @@ public class ReadFragment extends Fragment {
                         .position(new LatLng(location.getLatitude(), location.getLongitude()))
                         .title(key)
                         .alpha(0.7f));
-                if(key == "Affected") {
+                if(key.equals("Affected")) {
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f);
                     mMap.moveCamera(cameraUpdate);
+                }
+                if(key.equals("Hospital")){
+                    place.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_medical));
+                }
+                if(key.equals("Blood Bank")){
+                    place.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_blood));
+                }
+                if(key.equals("Fire Brigade")){
+                    place.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_fire));
+                }
+                if(key.equals("Police")){
+                    place.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_police));
+                }
+                if(key.equals("NGO & Rescue")){
+                    place.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_ngo));
                 }
                 if (!buildingTypes.contains(key)) {
                     CircleOptions circleOptions = new CircleOptions()
@@ -122,23 +104,18 @@ public class ReadFragment extends Fragment {
                     circleOptions.strokeWidth(3);
                     circleOptions.radius(500);
                     mMap.addCircle(circleOptions);
-                } else {
-                    //color hospitals and others
-                    place.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
                 }
             }
         }
         if(mMap.isMyLocationEnabled()){
-            mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-                //Toast.makeText(getApplicationContext(), .toString(), Toast.LENGTH_LONG).show();
-                @Override
-                public void onMyLocationChange(Location arg0) {
-                    // TODO Auto-generated method stub
-                    //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 14.0f);
-                    //mMap.moveCamera(cameraUpdate);
-                    //mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
-                }
-            });
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE); //getSystemService(LOCATION_SERVICE);
+            Criteria criteria   = new Criteria();
+            String bestProvider = locationManager.getBestProvider(criteria, false);
+            Location location   = locationManager.getLastKnownLocation(bestProvider);
+            LatLng posLatLon    = new LatLng(location.getLatitude(), location.getLongitude());
+            //Toast.makeText(getActivity().getApplicationContext(), "position: "+ location.getLatitude() + "," + location.getLongitude(), Toast.LENGTH_SHORT).show();
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom( posLatLon, 13.0f);
+            mMap.moveCamera(cameraUpdate);
         }
     }
 
@@ -160,3 +137,41 @@ public class ReadFragment extends Fragment {
         super.onDestroy();
     }
 }
+//removed codes *****************************************************************************//
+/*start temp locations*/
+        /*
+        Address spot1 = new Address(null);
+        spot1.setLatitude(17.4456);
+        spot1.setLongitude(78.3497);
+        Address spot2 = new Address(null);
+        spot2.setLatitude(17.4456);
+        spot2.setLongitude(78.3427);
+        Address spot3 = new Address(null);
+        spot3.setLatitude(17.44219);
+        spot3.setLongitude(78.3587);
+        Address spot4 = new Address(null);
+        spot4.setLatitude(17.4502415);
+        spot4.setLongitude(78.364239);
+        Address spot5 = new Address(null);
+        spot5.setLatitude(17.45219);
+        spot5.setLongitude(78.3637);
+        Address spot6 = new Address(null);
+        spot6.setLatitude(17.452415);
+        spot6.setLongitude(78.331239);
+        List<Address> affectedAreas = new ArrayList<Address>();
+        affectedAreas.add(spot1);
+        affectedAreas.add(spot2);
+        List<Address> healthCare = new ArrayList<Address>();
+        healthCare.add(spot3);
+        healthCare.add(spot4);
+        List<Address> bloodBanks = new ArrayList<Address>();
+        bloodBanks.add(spot5);
+        List<Address> fireBrigade = new ArrayList<Address>();
+        fireBrigade.add(spot6);
+        Map<String, List<Address>> hotSpots = new HashMap<String, List<Address>>();
+        hotSpots.put("Affected", affectedAreas);
+        hotSpots.put("Hospital", healthCare);
+        hotSpots.put("Blood Bank", bloodBanks);
+        hotSpots.put("Fire Brigade", fireBrigade);*/
+        /*end tmp locations*/
+//Toast.makeText(getApplicationContext(), hotSpots.values().toString(), Toast.LENGTH_LONG).show();
