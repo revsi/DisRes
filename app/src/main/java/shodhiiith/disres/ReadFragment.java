@@ -23,6 +23,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +65,23 @@ public class ReadFragment extends Fragment {
                 mMap.setMyLocationEnabled(true);
                 mMap.setBuildingsEnabled(true);
                 mMap.setTrafficEnabled(true);
+                List<NameValuePair> myLocation = new ArrayList<NameValuePair>();
+                Location me = whatsMyLocation();
+                myLocation.add(new BasicNameValuePair("latitude",Double.toString(me.getLatitude()) ));
+                myLocation.add(new BasicNameValuePair("longitude",Double.toString(me.getLongitude()) ));
+                new WebServices("nearByOrgs","http://192.168.137.60:9000/tmp",myLocation);
                 setUpMap();
             }
         }
     }
 
+    public Location whatsMyLocation(){
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE); //getSystemService(LOCATION_SERVICE);
+        Criteria criteria   = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        Location location   = locationManager.getLastKnownLocation(bestProvider);
+        return location;
+    }
 
     private void setUpMap() {
         Map<String, List<Address>> hotSpots = new HardData().getHardCodedData();
