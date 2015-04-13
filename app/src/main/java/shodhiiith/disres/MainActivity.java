@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
     public static final String name = "name";
     public static final String pass = "password";
     public static final String cookie = "cookie";
+    public static final String session = "session";
     SharedPreferences sharedpreferences;
 
 	@Override
@@ -78,6 +79,10 @@ public class MainActivity extends Activity {
         {
                 Intent i = new Intent(this,shodhiiith.disres.
                         Welcome.class);
+                String csrfToken = sharedpreferences.getString(cookie, null);
+                String sessionid = sharedpreferences.getString(session, null);
+                SharedData.setCookie(csrfToken);
+                SharedData.setSessionid(sessionid);
                 startActivity(i);
                 finish();
         }
@@ -128,8 +133,10 @@ public class MainActivity extends Activity {
             Intent i = new Intent(this,shodhiiith.disres.
                     Welcome.class);
             String csrftoken  = SharedData.getCookie();
+            String sessionid = SharedData.getSessionid();
             Editor editor = sharedpreferences.edit();
             editor.putString(cookie, csrftoken);
+            editor.putString(session, sessionid);
             editor.commit();
             startActivity(i);
             finish();
@@ -179,7 +186,6 @@ public class MainActivity extends Activity {
 
             // 5. set json to StringEntity
             StringEntity se = new StringEntity(json);
-            Log.d("Check Se = ",se.toString());
             // 6. set httpPost Entity
             httpPost.setEntity(se);
 
@@ -187,8 +193,8 @@ public class MainActivity extends Activity {
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
-            HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
-            httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+          //  HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+         //   httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
             Log.d("Check httpost = ",httpPost.toString());
             // 8. Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
@@ -209,22 +215,27 @@ public class MainActivity extends Activity {
             httpclient.execute(httpGet);
 
             String csrfToken = new String();
+            String sessionid = new String();
             CookieStore cookieStore = httpclient.getCookieStore();
+            SharedData.setcookiestore(cookieStore);
             List <Cookie> cookies =  cookieStore.getCookies();
             for (Cookie cookie: cookies) {
+                Log.d("fucker",cookie.getValue());
                 if (cookie.getName().equals("csrftoken")) {
                     csrfToken = cookie.getValue();
+                    Log.d("Check2",cookie.getValue());
                 }
+                else{
+                    sessionid = cookie.getValue();
+                    Log.d("Check1",cookie.getValue());
+                }
+                Log.d("Domains = " ,cookie.getDomain());
             }
             httpGet.setHeader("Referer", url);
             httpGet.setHeader("X-CSRFToken", csrfToken);
             SharedData.setCookie(csrfToken);
-            Log.d("Check csrftoken = ",csrfToken.toString());
+            SharedData.setSessionid(sessionid);
 
-
-
-
-            Log.d("Check Result = ",result);
 
         } catch (Exception e) {
             Log.d("Check InputStream", e.getLocalizedMessage());
@@ -249,7 +260,6 @@ public class MainActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             response(result);
-            Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
         }
     }
     public boolean isConnected(){

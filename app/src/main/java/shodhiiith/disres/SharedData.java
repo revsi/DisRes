@@ -1,8 +1,9 @@
 package shodhiiith.disres;
 
 import android.app.Application;
-import java.net.CookieStore;
-import java.net.HttpCookie;
+
+import org.apache.http.client.CookieStore;
+
 /**
  * Created by rajat on 4/13/15.
  */
@@ -10,12 +11,14 @@ public class SharedData extends Application {
 
         private static String app_url;
         private static String cookie;
-
+        private static String sessionid;
+        private static CookieStore cookiestore ;
         @Override
         public void onCreate() {
             super.onCreate();
-            app_url="http://disres.pythonanywhere.com/";
+            app_url="http://10.42.0.28:8000/";
             cookie="";
+            sessionid="";
         }
 
         public static String getCookie() {
@@ -26,9 +29,25 @@ public class SharedData extends Application {
             SharedData.cookie = cookie;
         }
 
+        public static String getSessionid() {
+            return sessionid;
+        }
+
+        public static void setSessionid(String sessionid) {
+        SharedData.sessionid = sessionid;
+    }
+
+        public  static CookieStore getcookiestore() {
+            return cookiestore;
+        }
+
+        public static  void setcookiestore(CookieStore cookieStore) {
+            SharedData.cookiestore = cookiestore;
+        }
+
         public static String getAppUrl() {
 
-            app_url="http://disres.pythonanywhere.com/";
+            app_url="http://10.42.0.28:8000/";
             return app_url;
         }
 

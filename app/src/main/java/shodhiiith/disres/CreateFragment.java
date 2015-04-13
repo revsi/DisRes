@@ -3,22 +3,61 @@ package shodhiiith.disres;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.CookieStore;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import shodhiiith.disres.R;
 
 public class CreateFragment extends Fragment {
+
+    public static final String cookie = "cookie";
+    public static final String msg = "Emergency SOS";
 
 	public CreateFragment() {
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
 		View rootView = inflater.inflate(R.layout.fragment_create, container, false);
         Button btn = (Button) rootView.findViewById(R.id.button);
@@ -82,18 +121,43 @@ public class CreateFragment extends Fragment {
         });
 
 
-
-
 		return rootView;
 	}
 
+    private Location getCurrentPosition(){
+        // location details
+        LocationManager locationManager     = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria   = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        Location location   = locationManager.getLastKnownLocation(bestProvider);
+        return location;
+    }
+
     public void earthquake_sos(View v)
     {
-        Toast.makeText(getActivity(), "Earthquake SOS sent ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Sending Earthquake SOS", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"EQ", lati, longi);
+
     }
     public void fire_sos(View v)
     {
+
         Toast.makeText(getActivity(), "Fire SOS sent ", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"FI", lati, longi);
     }
     public void landslide_sos(View v)
     {
@@ -110,5 +174,143 @@ public class CreateFragment extends Fragment {
     public void flood_sos(View v)
     {
         Toast.makeText(getActivity(), "Flood SOS sent ", Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void response(String responsedata){
+
+        JSONObject json;
+        JSONArray arr;
+        JSONObject jObj = null;
+        String status="";
+        Log.d("Check Response = ",responsedata);
+        try {
+            // arr = new JSONArray(responsedata);
+            jObj = new JSONObject(responsedata);
+            // Log.d("Check arr = ",arr.toString());
+            status = jObj.getString("message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (status.equalsIgnoreCase("Emergency SOS")){
+            Toast.makeText(getActivity().getApplicationContext(), "SOS successfully Sent", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
+    }
+
+
+    public static String POST(String url, String type, String lati, String longi){
+        InputStream inputStream = null;
+        String result = "";
+        Log.d("Check Url = ", url);
+        try {
+
+            // 1. create HttpClient
+            DefaultHttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("dis_type", type);
+            jsonObject.put("message", msg);
+            jsonObject.put("latitude", lati);
+            jsonObject.put("longitude",longi);
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
+            // ObjectMapper mapper = new ObjectMapper();
+            // json = mapper.writeValueAsString(person);
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(json, HTTP.UTF_8);
+            Log.d("Check Se = ",se.toString());
+            // 6. set httpPost Entity
+            httpPost.setEntity(se);
+            String csrfToken = SharedData.getCookie();
+            Log.d("Check Token = ",csrfToken );
+            String session = SharedData.getSessionid();
+            Log.d("Check session = ",session );
+            // 7. Set some headers to inform server about the type of the content
+            httpPost.setHeader("X-CSRFToken", csrfToken);
+            String urlauth = SharedData.getAppUrl();
+            urlauth = urlauth + "auth/";
+            httpPost.setHeader("Referer", urlauth);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+
+            final BasicCookieStore cookieStore =  new BasicCookieStore();
+
+            BasicClientCookie csrf_cookie = new BasicClientCookie("csrftoken", csrfToken);
+            BasicClientCookie csrf_cookie1 = new BasicClientCookie("sessionid", session);
+            urlauth = SharedData.getAppUrl();
+            csrf_cookie.setDomain("10.42.0.28");
+            csrf_cookie1.setDomain("10.42.0.28");
+            cookieStore.addCookie(csrf_cookie);
+            cookieStore.addCookie(csrf_cookie1);
+
+            HttpContext localContext = new BasicHttpContext();
+            localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
+
+
+            //HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+           // httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+            Log.d("Check httpost = ", httpPost.toString());
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost, localContext);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+
+            Log.d("Check Result = ",result);
+
+        } catch (Exception e) {
+            Log.d("Check InputStream", e.getLocalizedMessage());
+        }
+
+        // 11. return result
+        return result;
+    }
+
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            return POST(urls[0],urls[1], urls[2], urls[3]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            response(result);
+        }
     }
 }
