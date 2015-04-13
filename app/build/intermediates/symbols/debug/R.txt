@@ -469,7 +469,7 @@ int id action_menu_presenter 0x7f0b0003
 int id action_mode_bar 0x7f0b0043
 int id action_mode_bar_stub 0x7f0b0042
 int id action_mode_close_button 0x7f0b0035
-int id action_settings 0x7f0b0070
+int id action_settings 0x7f0b0074
 int id activity_chooser_view_content 0x7f0b0036
 int id adjust_height 0x7f0b0017
 int id adjust_width 0x7f0b0018
@@ -478,6 +478,7 @@ int id beginning 0x7f0b0014
 int id book_now 0x7f0b002c
 int id btnSelectPhoto 0x7f0b0065
 int id button 0x7f0b0057
+int id button1 0x7f0b0073
 int id button2 0x7f0b0058
 int id button3 0x7f0b0059
 int id button4 0x7f0b005a
@@ -521,6 +522,7 @@ int id ivImage 0x7f0b0066
 int id left_drawer 0x7f0b0056
 int id listMode 0x7f0b0009
 int id list_item 0x7f0b003a
+int id logout 0x7f0b0075
 int id mapview 0x7f0b006a
 int id mapview2 0x7f0b0068
 int id match_parent 0x7f0b002b
@@ -529,6 +531,7 @@ int id monochrome 0x7f0b0032
 int id never 0x7f0b001f
 int id none 0x7f0b000e
 int id normal 0x7f0b000a
+int id passwordtxt 0x7f0b0070
 int id production 0x7f0b0026
 int id progress_circular 0x7f0b0005
 int id progress_horizontal 0x7f0b0006
@@ -559,6 +562,7 @@ int id submit_area 0x7f0b0051
 int id tabMode 0x7f0b000b
 int id terrain 0x7f0b001b
 int id textView 0x7f0b005d
+int id textView1 0x7f0b0071
 int id textView2 0x7f0b005f
 int id textView3 0x7f0b0061
 int id textView4 0x7f0b0063
@@ -567,6 +571,7 @@ int id textViewName 0x7f0b006f
 int id title 0x7f0b003c
 int id up 0x7f0b0008
 int id useLogo 0x7f0b0012
+int id usernametxt 0x7f0b0072
 int id withText 0x7f0b0020
 int id wrap_content 0x7f0b0023
 int integer abc_config_activityDefaultDur 0x7f0c0000
@@ -601,7 +606,9 @@ int layout fragment_help 0x7f040018
 int layout fragment_read 0x7f040019
 int layout fragment_search 0x7f04001a
 int layout listview_item_row 0x7f04001b
-int layout support_simple_spinner_dropdown_item 0x7f04001c
+int layout login 0x7f04001c
+int layout support_simple_spinner_dropdown_item 0x7f04001d
+int layout welcome 0x7f04001e
 int menu main 0x7f0f0000
 int mipmap ic_camera 0x7f030000
 int mipmap ic_launcher 0x7f030001

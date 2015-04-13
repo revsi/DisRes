@@ -5,6 +5,11 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"/>
 
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="101"
+        android:title="Logout"/>
+
 
 </menu>
 <!-- From: file:/home/rajat/work/android/DisRes/app/src/main/res/menu/main.xml -->

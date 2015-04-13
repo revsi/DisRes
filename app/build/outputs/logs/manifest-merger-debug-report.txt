@@ -301,3 +301,9 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:52:17
 	android:name
 		ADDED from AndroidManifest.xml:52:27
+activity#shodhiiith.disres.Welcome
+ADDED from AndroidManifest.xml:55:9
+	android:label
+		ADDED from AndroidManifest.xml:57:13
+	android:name
+		ADDED from AndroidManifest.xml:56:13
