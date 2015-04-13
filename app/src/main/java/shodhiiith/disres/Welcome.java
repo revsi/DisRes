@@ -205,6 +205,7 @@ public class Welcome extends Activity {
         Editor editor = sharedpreferences.edit();
         editor.clear();
         editor.commit();
+        Log.v("check","logout");
         moveTaskToBack(true);
         Welcome.this.finish();
     }
