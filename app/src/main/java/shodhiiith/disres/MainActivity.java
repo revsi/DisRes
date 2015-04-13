@@ -26,15 +26,7 @@ import com.google.android.gms.maps.MapFragment;
 
 public class MainActivity extends Activity {
 
-	// declare properties
-    private String[] mNavigationDrawerItemTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
 
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    // nav drawer title
-    private CharSequence mDrawerTitle;
  
     // used to store app title
     private CharSequence mTitle;

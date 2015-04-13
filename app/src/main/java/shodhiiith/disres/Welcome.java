@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.Menu;
 import android.view.View;
 import android.app.FragmentTransaction;
@@ -48,7 +49,6 @@ public class Welcome extends Activity {
         setContentView(R.layout.welcome);
         // for proper titles
         mTitle = mDrawerTitle = getTitle();
-
         // initialize properties
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -104,7 +104,6 @@ public class Welcome extends Activity {
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
         if (savedInstanceState == null) {
             // on first time display view for first nav item
             selectItem(0);
@@ -122,6 +121,9 @@ public class Welcome extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.logout:
                 logout();
