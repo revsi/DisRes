@@ -69,7 +69,7 @@ public class ReadFragment extends Fragment {
                 Location me = whatsMyLocation();
                 myLocation.add(new BasicNameValuePair("latitude",Double.toString(me.getLatitude()) ));
                 myLocation.add(new BasicNameValuePair("longitude",Double.toString(me.getLongitude()) ));
-                new WebServices("nearByOrgs","http://192.168.137.60:9000/tmp",myLocation);
+                new WebServices("nearByOrgs",myLocation);
                 setUpMap();
             }
         }

@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment {
                 EditText searchText = (EditText) getActivity().findViewById(R.id.editText5);
                 String  orgName = searchText.getText().toString();
                 parameters.add(new BasicNameValuePair("organisation",orgName));
-                new WebServices("searchOrg","http://192.168.137.60:9000/tmp", parameters);
+                new WebServices("searchOrg", parameters);
             }
         });
         return rootView;

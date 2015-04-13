@@ -8,7 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import shodhiiith.disres.R;
 
@@ -89,26 +96,62 @@ public class CreateFragment extends Fragment {
 
     public void earthquake_sos(View v)
     {
+       /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Earthquake"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg", parameters);
+        */
         Toast.makeText(getActivity(), "Earthquake SOS sent ", Toast.LENGTH_SHORT).show();
     }
     public void fire_sos(View v)
     {
+        /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Fire"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg", parameters);
+        */
         Toast.makeText(getActivity(), "Fire SOS sent ", Toast.LENGTH_SHORT).show();
     }
     public void landslide_sos(View v)
     {
+        /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Landslide"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg", parameters);
+        */
         Toast.makeText(getActivity(), "Landslide SOS sent ", Toast.LENGTH_SHORT).show();
     }
     public void cyclone_sos(View v)
     {
+        /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Cyclone"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg", parameters);
+        */
         Toast.makeText(getActivity(), "Cyclone SOS sent ", Toast.LENGTH_SHORT).show();
     }
     public void tsunami_sos(View v)
     {
+        /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Tsunami"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg", parameters);
+        */
         Toast.makeText(getActivity(), "Tsunami SOS sent ", Toast.LENGTH_SHORT).show();
     }
     public void flood_sos(View v)
     {
+        /* List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        parameters.add(new BasicNameValuePair("disaster","Flood"));
+        parameters.add(new BasicNameValuePair("latitude",    ));
+        parameters.add(new BasicNameValuePair("longitude",    ));
+        new WebServices("searchOrg" parameters);
+        */
         Toast.makeText(getActivity(), "Flood SOS sent ", Toast.LENGTH_SHORT).show();
     }
 }

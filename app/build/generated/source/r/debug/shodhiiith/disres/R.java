@@ -1743,7 +1743,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0b0043;
         public static final int action_mode_bar_stub=0x7f0b0042;
         public static final int action_mode_close_button=0x7f0b0035;
-        public static final int action_settings=0x7f0b0070;
+        public static final int action_settings=0x7f0b0071;
         public static final int activity_chooser_view_content=0x7f0b0036;
         public static final int adjust_height=0x7f0b0017;
         public static final int adjust_width=0x7f0b0018;
@@ -1790,7 +1790,7 @@ containing a value of this type.
         public static final int icon=0x7f0b003b;
         public static final int ifRoom=0x7f0b001e;
         public static final int image=0x7f0b0038;
-        public static final int imageViewIcon=0x7f0b006e;
+        public static final int imageViewIcon=0x7f0b006f;
         public static final int ivImage=0x7f0b0066;
         public static final int left_drawer=0x7f0b0056;
         public static final int listMode=0x7f0b0009;
@@ -1837,7 +1837,8 @@ containing a value of this type.
         public static final int textView3=0x7f0b0061;
         public static final int textView4=0x7f0b0063;
         public static final int textView5=0x7f0b0067;
-        public static final int textViewName=0x7f0b006f;
+        public static final int textView6=0x7f0b006e;
+        public static final int textViewName=0x7f0b0070;
         public static final int title=0x7f0b003c;
         public static final int up=0x7f0b0008;
         public static final int useLogo=0x7f0b0012;
