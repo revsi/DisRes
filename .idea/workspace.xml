@@ -40,10 +40,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Welcome.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Welcome.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/Welcome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33246073" vertical-offset="2723" max-vertical-offset="3300">
+            <state vertical-scroll-proportion="-77.48148" vertical-offset="758" max-vertical-offset="3300">
               <caret line="190" column="15" selection-start-line="190" selection-start-column="12" selection-end-line="190" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -80,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="608" max-vertical-offset="1215">
-              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.8973105" vertical-offset="743" max-vertical-offset="1245">
+              <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1636,10 +1636,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/ReadFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/welcome.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/Welcome.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2349,16 +2349,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="608" max-vertical-offset="1215">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/HelpFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2775">
@@ -2406,12 +2396,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/Welcome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33246073" vertical-offset="2723" max-vertical-offset="3300">
+        <state vertical-scroll-proportion="-77.48148" vertical-offset="758" max-vertical-offset="3300">
           <caret line="190" column="15" selection-start-line="190" selection-start-column="12" selection-end-line="190" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2980#3000#0" expanded="true" />
             <element signature="e#3051#3072#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/shodhiiith/disres/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8973105" vertical-offset="743" max-vertical-offset="1245">
+          <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

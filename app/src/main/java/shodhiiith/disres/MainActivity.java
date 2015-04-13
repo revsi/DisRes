@@ -56,6 +56,7 @@ public class MainActivity extends Activity {
                 Intent i = new Intent(this,shodhiiith.disres.
                         Welcome.class);
                 startActivity(i);
+                finish();
             }
         }
         super.onResume();
@@ -71,5 +72,6 @@ public class MainActivity extends Activity {
         Intent i = new Intent(this,shodhiiith.disres.
                 Welcome.class);
         startActivity(i);
+        finish();
     }
 }
