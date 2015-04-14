@@ -130,6 +130,8 @@ public class CreateFragment extends Fragment {
         Criteria criteria   = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
         Location location   = locationManager.getLastKnownLocation(bestProvider);
+        Log.v("d","check");
+        System.out.println(location);
         return location;
     }
 
@@ -217,9 +219,7 @@ public class CreateFragment extends Fragment {
         String status="";
         Log.d("Check Response = ",responsedata);
         try {
-            // arr = new JSONArray(responsedata);
             jObj = new JSONObject(responsedata);
-            // Log.d("Check arr = ",arr.toString());
             status = jObj.getString("message");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -276,13 +276,10 @@ public class CreateFragment extends Fragment {
 
             // 5. set json to StringEntity
             StringEntity se = new StringEntity(json, HTTP.UTF_8);
-            Log.d("Check Se = ",se.toString());
             // 6. set httpPost Entity
             httpPost.setEntity(se);
             String csrfToken = SharedData.getCookie();
-            Log.d("Check Token = ",csrfToken );
             String session = SharedData.getSessionid();
-            Log.d("Check session = ",session );
             // 7. Set some headers to inform server about the type of the content
             httpPost.setHeader("X-CSRFToken", csrfToken);
             String urlauth = SharedData.getAppUrl();
@@ -297,8 +294,8 @@ public class CreateFragment extends Fragment {
             BasicClientCookie csrf_cookie = new BasicClientCookie("csrftoken", csrfToken);
             BasicClientCookie csrf_cookie1 = new BasicClientCookie("sessionid", session);
             urlauth = SharedData.getAppUrl();
-            csrf_cookie.setDomain("10.42.0.28");
-            csrf_cookie1.setDomain("10.42.0.28");
+            csrf_cookie.setDomain("disres.pythonanywhere.com");
+            csrf_cookie1.setDomain("disres.pythonanywhere.com");
             cookieStore.addCookie(csrf_cookie);
             cookieStore.addCookie(csrf_cookie1);
 
@@ -307,9 +304,8 @@ public class CreateFragment extends Fragment {
 
 
 
-            //HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
-           // httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-            Log.d("Check httpost = ", httpPost.toString());
+            HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+           httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
             // 8. Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost, localContext);
 

@@ -54,11 +54,14 @@ public class MainActivity extends Activity {
  
     // used to store app title
     private CharSequence mTitle;
-    private EditText username,password;
+    private EditText username,password,usernamereg,passwordreg,emailreg;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String name = "name";
     public static final String pass = "password";
     public static final String cookie = "cookie";
+    public static final String namereg = "namereg";
+    public static final String passreg = "passwordreg";
+    public static final String emailregi = "emailregi";
     public static final String session = "session";
     SharedPreferences sharedpreferences;
 
@@ -68,6 +71,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.login);
         username = (EditText)findViewById(R.id.usernametxt);
         password = (EditText)findViewById(R.id.passwordtxt);
+        usernamereg = (EditText)findViewById(R.id.usernametxtreg);
+        passwordreg = (EditText)findViewById(R.id.passwordtxtreg);
+        emailreg = (EditText)findViewById(R.id.usernametxtreg);
 
 	}
 
@@ -98,10 +104,8 @@ public class MainActivity extends Activity {
         editor.putString(pass, p);
         editor.commit();
         String url = SharedData.getAppUrl();
-        Log.d("Check Url = ",url);
         url = url + "auth/";
         // call AsynTask to perform network operation on separate thread
-        Log.d("Check Url = ",url);
         new HttpAsyncTask()
                 .execute(url);
 
@@ -117,8 +121,6 @@ public class MainActivity extends Activity {
         try {
            // arr = new JSONArray(responsedata);
             jObj = new JSONObject(responsedata);
-           // Log.d("Check arr = ",arr.toString());
-            Log.d("Check obj = ",jObj.toString());
             status = jObj.getString("status");
             Log.d("Check status = ",status);
         } catch (JSONException e) {
@@ -161,7 +163,6 @@ public class MainActivity extends Activity {
     public static String POST(String url, String u, String p){
         InputStream inputStream = null;
         String result = "";
-        Log.d("Check Url = ",url);
         try {
 
             // 1. create HttpClient
@@ -195,7 +196,6 @@ public class MainActivity extends Activity {
 
           //  HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
          //   httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-            Log.d("Check httpost = ",httpPost.toString());
             // 8. Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
@@ -220,14 +220,11 @@ public class MainActivity extends Activity {
             SharedData.setcookiestore(cookieStore);
             List <Cookie> cookies =  cookieStore.getCookies();
             for (Cookie cookie: cookies) {
-                Log.d("fucker",cookie.getValue());
                 if (cookie.getName().equals("csrftoken")) {
                     csrfToken = cookie.getValue();
-                    Log.d("Check2",cookie.getValue());
                 }
                 else{
                     sessionid = cookie.getValue();
-                    Log.d("Check1",cookie.getValue());
                 }
                 Log.d("Domains = " ,cookie.getDomain());
             }
@@ -250,8 +247,6 @@ public class MainActivity extends Activity {
         protected String doInBackground(String... urls) {
             String u = sharedpreferences.getString(name, null);
             String p = sharedpreferences.getString(pass, null);
-            Log.v("check name = ",u);
-            Log.v("check pass = ",p);
 
             return POST(urls[0],u,p);
         }
@@ -270,5 +265,29 @@ public class MainActivity extends Activity {
         else
             return false;
     }
+
+    public void register(View view){
+
+        String u = usernamereg.getText().toString();
+        String e = emailreg.getText().toString();
+        String p = passwordreg.getText().toString();
+        Editor editor = sharedpreferences.edit();
+        editor.putString(namereg, u);
+        editor.putString(passreg, p);
+        editor.putString(emailregi, e);
+        editor.commit();
+        String url = SharedData.getAppUrl();
+        url = url + "users/";
+        // call AsynTask to perform network operation on separate thread
+       // new HttpAsyncTask()
+         //       .execute(url);
+        Log.v("email =", e);
+        Log.v("password =", p);
+        Log.v("uswr =", u);
+
+
+    }
+
+
 
 }

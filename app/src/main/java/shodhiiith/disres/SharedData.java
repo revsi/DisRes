@@ -16,7 +16,7 @@ public class SharedData extends Application {
         @Override
         public void onCreate() {
             super.onCreate();
-            app_url="http://10.42.0.28:8000/";
+            app_url="http://disres.pythonanywhere.com/";
             cookie="";
             sessionid="";
         }
@@ -47,7 +47,7 @@ public class SharedData extends Application {
 
         public static String getAppUrl() {
 
-            app_url="http://10.42.0.28:8000/";
+            app_url="http://disres.pythonanywhere.com/";
             return app_url;
         }
 
