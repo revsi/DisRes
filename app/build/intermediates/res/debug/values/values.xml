@@ -2,10 +2,18 @@
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <!-- From: file:/home/rajat/work/android/DisRes/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string-array name="disasters">
+        <item>Earthquake</item>
+        <item>Flood</item>
+        <item>LandSlide</item>
+        <item>Fire</item>
+        <item>Tsunami</item>
+        <item>Cyclone</item>
+    </string-array>
     <string-array name="navigation_drawer_items_array">
         <item>SOS</item>
         <item>Display Organizations</item>
-        <item>Submit Info</item>
+        <item>Report Disaster Info</item>
         <item>Search Organizations</item>
 
     </string-array>

@@ -74,8 +74,10 @@ public class SearchFragment extends Fragment {
         }
         TextView displayText = (TextView) getActivity().findViewById(R.id.textView6);
         displayText.setText("");
-        for (OrgsData org: searchResults) {
-            displayText.append(org.org_name.toString() + "   " + org.mobile.toString() + "\n" );
+        if(!searchText.equals("")) {
+            for (OrgsData org : searchResults) {
+                displayText.append(org.org_name.toString() + "  :  " + org.mobile.toString() + "\n\n");
+            }
         }
     }
 

@@ -9,10 +9,20 @@
     <string-array name="navigation_drawer_items_array">
         <item>SOS</item>
         <item>Display Organizations</item>
-        <item>Submit Info</item>
+        <item>Report Disaster Info</item>
         <item>Search Organizations</item>
 
     </string-array>
+
+    <string-array name="disasters">
+        <item>Earthquake</item>
+        <item>Flood</item>
+        <item>LandSlide</item>
+        <item>Fire</item>
+        <item>Tsunami</item>
+        <item>Cyclone</item>
+    </string-array>
+
 
     <string name="drawer_open">Open Options</string>
     <string name="drawer_close">Close Options</string>

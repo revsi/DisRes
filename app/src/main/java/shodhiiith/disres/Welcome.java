@@ -68,7 +68,7 @@ public class Welcome extends Activity {
 
         drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_action_sos, "SOS");
         drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_action_display, "Display Organizations");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_submit, "Submit Info");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_action_submit, "Report Disaster Info");
         drawerItem[3] = new ObjectDrawerItem(R.drawable.ic_action_search, "Search Organizations");
 
         // Pass the folderData to our ListView adapter
@@ -169,13 +169,13 @@ public class Welcome extends Activity {
 
         switch (position) {
             case 0:
-                fragment = new CreateFragment();
+                fragment = new SOS();
                 break;
             case 1:
-                fragment = new ReadFragment();
+                fragment = new DisplayOrgs();
                 break;
             case 2:
-                fragment = new HelpFragment();
+                fragment = new Report();
                 break;
             case 3:
                 fragment = new SearchFragment();
