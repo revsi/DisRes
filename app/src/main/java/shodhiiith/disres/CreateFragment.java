@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,7 +68,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                earthquake_sos(v);
+                if(isConnected()) {
+                    earthquake_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -76,7 +83,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                flood_sos(v);
+                if(isConnected()) {
+                    flood_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -86,7 +98,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                landslide_sos(v);
+                if(isConnected()) {
+                    landslide_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -96,7 +113,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                fire_sos(v);
+                if(isConnected()) {
+                    fire_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -106,7 +128,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                tsunami_sos(v);
+                if(isConnected()) {
+                    tsunami_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -114,10 +141,15 @@ public class CreateFragment extends Fragment {
         btn6.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v)
-            {
-                cyclone_sos(v);
+            public void onClick(View v) {
+                if (isConnected()) {
+                    cyclone_sos(v);
+                }
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                }
             }
+
         });
 
 
@@ -341,4 +373,14 @@ public class CreateFragment extends Fragment {
             response(result);
         }
     }
+
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+
 }
