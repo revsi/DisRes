@@ -177,56 +177,28 @@ public class MainActivity extends Activity {
         InputStream inputStream = null;
         String result = "";
         try {
-
-            // 1. create HttpClient
             DefaultHttpClient httpclient = new DefaultHttpClient();
-
-            // 2. make POST request to the given URL
             HttpPost httpPost = new HttpPost(url);
-
             String json = "";
-
-            // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("username", u);
             jsonObject.put("password", p);
-
-            // 4. convert JSONObject to JSON to String
             json = jsonObject.toString();
-
-            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
-            // ObjectMapper mapper = new ObjectMapper();
-            // json = mapper.writeValueAsString(person);
-
-            // 5. set json to StringEntity
             StringEntity se = new StringEntity(json);
-            // 6. set httpPost Entity
             httpPost.setEntity(se);
-
-            // 7. Set some headers to inform server about the type of the content
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
             HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
            httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-            // 8. Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            // 9. receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
             if(inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
-
-
-
             HttpGet httpGet = new HttpGet(url);
-
             httpclient.execute(httpGet);
-
             String csrfToken = new String();
             String sessionid = new String();
             CookieStore cookieStore = httpclient.getCookieStore();
@@ -250,8 +222,6 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             Log.d("Check InputStream", e.getLocalizedMessage());
         }
-
-        // 11. return result
         return result;
     }
 
@@ -263,12 +233,96 @@ public class MainActivity extends Activity {
 
             return POST(urls[0],u,p);
         }
-        // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             response(result);
         }
+    }
+
+    private class HttpAsyncRegisterTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            String regEmail = sharedpreferences.getString(emailregi, null);
+            String regName = sharedpreferences.getString(namereg, null);
+            String regPwd = sharedpreferences.getString(passreg, null);
+            return postRegistrationData(urls[0], regName, regEmail, regPwd);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            responseReg(result);
+        }
+    }
+
+    private void responseReg(String responsedata){
+
+        JSONObject json;
+        JSONArray arr;
+        JSONObject jObj = null;
+        String status="";
+        Log.d("Check Response Reg = ",responsedata);
+        try {
+            // arr = new JSONArray(responsedata);
+            jObj = new JSONObject(responsedata);
+            status = jObj.getString("username");
+            Log.d("Check username reg = ",status);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (status.equalsIgnoreCase(sharedpreferences.getString(namereg,null))){
+            Toast.makeText(getBaseContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+            Editor editor = sharedpreferences.edit();
+            editor.putString(name, sharedpreferences.getString(namereg,null));
+            editor.putString(pass, sharedpreferences.getString(passreg,null));
+            editor.commit();
+            String url = SharedData.getAppUrl();
+            url = url + "auth/";
+            Toast.makeText(getBaseContext(), "Logging In .. ", Toast.LENGTH_LONG).show();
+
+            new HttpAsyncTask()
+                    .execute(url);
+        }
+        else{
+            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public String postRegistrationData(String url, String regName, String regEmail, String regPwd){
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            DefaultHttpClient httpclient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+            String json = "";
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", regName);
+            jsonObject.put("email", regEmail);
+            jsonObject.put("password", regPwd);
+            json = jsonObject.toString();
+            StringEntity se = new StringEntity(json);
+            httpPost.setEntity(se);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+            httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+            inputStream = httpResponse.getEntity().getContent();
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+            //######################################################
+
+        } catch (Exception e) {
+            Log.d("Check InputStream", e.getLocalizedMessage());
+        }
+        return result;
     }
 
     private void responseOrgList(String responsedata){
@@ -301,51 +355,17 @@ public class MainActivity extends Activity {
         String result = "";
         Log.d("Check Url = ", url);
         try {
-
-            // 1. create HttpClient
             DefaultHttpClient httpclient = new DefaultHttpClient();
-
-            // 2. make POST request to the given URL
-            HttpGet httpPost = new HttpGet(url);
-
-            String json = "";
-
-            // 3. build jsonObject
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("user", "test user");
-            jsonObject.put("org_name", "test");
-            jsonObject.put("org_type", "H");
-            jsonObject.put("description", "test org");
-            jsonObject.put("address", "test addr");
-            jsonObject.put("latitude", "100");
-            jsonObject.put("longitude","100");
-            // 4. convert JSONObject to JSON to String
-            json = jsonObject.toString();
-
-            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
-            // ObjectMapper mapper = new ObjectMapper();
-            // json = mapper.writeValueAsString(person);
-
-            // 5. set json to StringEntity
-            StringEntity se = new StringEntity(json, HTTP.UTF_8);
-            //Log.d("Check Se = ",se.toString());
-            // 6. set httpPost Entity
-            //  httpPost.setEntity(se);
+            HttpGet httpGet = new HttpGet(url);
             String csrfToken = SharedData.getCookie();
-            Log.d("Check Token = ",csrfToken );
             String session = SharedData.getSessionid();
-            Log.d("Check session = ",session );
-            // 7. Set some headers to inform server about the type of the content
-            httpPost.setHeader("X-CSRFToken", csrfToken);
+            httpGet.setHeader("X-CSRFToken", csrfToken);
             String urlauth = SharedData.getAppUrl();
             urlauth = urlauth + "auth/";
-            httpPost.setHeader("Referer", urlauth);
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-
+            httpGet.setHeader("Referer", urlauth);
+            httpGet.setHeader("Accept", "application/json");
+            httpGet.setHeader("Content-type", "application/json");
             final BasicCookieStore cookieStore =  new BasicCookieStore();
-
             BasicClientCookie csrf_cookie = new BasicClientCookie("csrftoken", csrfToken);
             BasicClientCookie csrf_cookie1 = new BasicClientCookie("sessionid", session);
             urlauth = SharedData.getAppUrl();
@@ -353,35 +373,19 @@ public class MainActivity extends Activity {
             csrf_cookie1.setDomain(SharedData.getCookieDomain());
             cookieStore.addCookie(csrf_cookie);
             cookieStore.addCookie(csrf_cookie1);
-
             HttpContext localContext = new BasicHttpContext();
             localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-
-
-
             HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
             httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-            Log.d("Check httpost = ", httpPost.toString());
-            // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost, localContext);
-
-            // 9. receive response as inputStream
+            HttpResponse httpResponse = httpclient.execute(httpGet, localContext);
             inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
             if(inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
-
-
-            Log.d("Check Result = ",result);
-
         } catch (Exception e) {
             Log.d("Check InputStream", e.getLocalizedMessage());
         }
-
-        // 11. return result
         return result;
     }
 
@@ -406,14 +410,11 @@ public class MainActivity extends Activity {
         editor.commit();
         String url = SharedData.getAppUrl();
         url = url + "users/";
+        Toast.makeText(getBaseContext(), "Registering....", Toast.LENGTH_LONG).show();
+
         // call AsynTask to perform network operation on separate thread
-       // new HttpAsyncTask()
-         //       .execute(url);
-        Log.v("email =", e);
-        Log.v("password =", p);
-        Log.v("uswr =", u);
-
-
+        new HttpAsyncRegisterTask()
+                .execute(url);
     }
 
 

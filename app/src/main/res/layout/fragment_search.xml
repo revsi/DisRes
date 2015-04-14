@@ -24,24 +24,22 @@
                 android:id="@+id/editText5"
                 android:layout_below="@+id/scrollView"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20sp"/>
+                android:layout_marginTop="20sp"
+                android:shadowColor="#15cef1e7"
+                android:hint="Type to Search organizations" />
 
 
-            <Button android:layout_width="wrap_content"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"
-                android:id="@+id/button72"
-                android:layout_below="@+id/scrollView"
-                android:onClick="getSearchResultsByName"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/textView6"
+                android:textIsSelectable="true" />
 
 
 
-            </LinearLayout>
+        </LinearLayout>
 
         </ScrollView>
 

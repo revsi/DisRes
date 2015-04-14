@@ -223,31 +223,5 @@ public class Welcome extends Activity {
         Welcome.this.finish();
     }
 
-    public void getSearchResultsByName(View v){
-        Log.d("searchText", "reading now");
-        EditText et = (EditText) findViewById(R.id.editText5);
-        String searchText = et.getText().toString();
-        //Log.d("searchText", searchText);
-        String json = sharedPreferences.getString("organisations", null);
-        List<OrgsData> orgsList = new OrgsData().savedOrgList(json);
-        List<OrgsData> searchResults = new ArrayList<OrgsData>();
-        for (OrgsData org: orgsList){
-            //Toast.makeText(getBaseContext(),org.org_name,Toast.LENGTH_SHORT).show();
-            if(org.org_name.toLowerCase().matches("(.*)"+searchText.toLowerCase()+"(.*)")){
-                // Toast.makeText(getBaseContext(),org.org_name,Toast.LENGTH_SHORT).show();
-                searchResults.add(org);
-            }
-        }
-        TextView displayText = (TextView) findViewById(R.id.textView6);
-        displayText.setText("");
-        for (OrgsData org: searchResults) {
-            displayText.append(org.org_name.toString() + "   " + org.mobile.toString() + "\n" );
-        }
-    }
-
-    public void getSearchResultsByType(View v){
-
-    }
-
 
 }
