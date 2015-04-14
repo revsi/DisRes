@@ -24,16 +24,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import shodhiiith.disres.R;
 import com.google.android.gms.maps.MapFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Welcome extends Activity {
 
     private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedPreferences;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -47,6 +55,7 @@ public class Welcome extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_APPEND);
         // for proper titles
         mTitle = mDrawerTitle = getTitle();
         // initialize properties
@@ -213,4 +222,32 @@ public class Welcome extends Activity {
         moveTaskToBack(true);
         Welcome.this.finish();
     }
+
+    public void getSearchResultsByName(View v){
+        Log.d("searchText", "reading now");
+        EditText et = (EditText) findViewById(R.id.editText5);
+        String searchText = et.getText().toString();
+        //Log.d("searchText", searchText);
+        String json = sharedPreferences.getString("organisations", null);
+        List<OrgsData> orgsList = new OrgsData().savedOrgList(json);
+        List<OrgsData> searchResults = new ArrayList<OrgsData>();
+        for (OrgsData org: orgsList){
+            //Toast.makeText(getBaseContext(),org.org_name,Toast.LENGTH_SHORT).show();
+            if(org.org_name.toLowerCase().matches("(.*)"+searchText.toLowerCase()+"(.*)")){
+                // Toast.makeText(getBaseContext(),org.org_name,Toast.LENGTH_SHORT).show();
+                searchResults.add(org);
+            }
+        }
+        TextView displayText = (TextView) findViewById(R.id.textView6);
+        displayText.setText("");
+        for (OrgsData org: searchResults) {
+            displayText.append(org.org_name.toString() + "   " + org.mobile.toString() + "\n" );
+        }
+    }
+
+    public void getSearchResultsByType(View v){
+
+    }
+
+
 }

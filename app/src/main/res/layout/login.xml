@@ -87,7 +87,7 @@
             android:layout_gravity="center_horizontal">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/button13"
                 android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/passwordtxt"
@@ -203,7 +203,7 @@
                 android:layout_marginTop="5sp">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/button23"
                     android:layout_width="200sp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"

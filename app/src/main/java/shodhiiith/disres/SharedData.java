@@ -45,11 +45,15 @@ public class SharedData extends Application {
             SharedData.cookiestore = cookiestore;
         }
 
-        public static String getAppUrl() {
-
-            app_url="http://disres.pythonanywhere.com/";
+        public static String getAppUrl() { app_url="http://disres.pythonanywhere.com/";
             return app_url;
         }
 
+        public static String getCookieDomain() {
+        //return "192.168.10.107";
+        return getAppUrl();
+        }
 
-    }
+
+
+}

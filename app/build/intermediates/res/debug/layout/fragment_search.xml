@@ -27,7 +27,17 @@
                 android:layout_marginTop="20sp"/>
 
 
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:id="@+id/button72"
+                android:layout_below="@+id/scrollView"
+                android:onClick="getSearchResultsByName"
+                android:layout_gravity="center_horizontal" />
 
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6" />
 
 
 
@@ -35,13 +45,6 @@
 
         </ScrollView>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/button7"
-        android:layout_below="@+id/scrollView"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout><!-- From: file:/home/rajat/work/android/DisRes/app/src/main/res/layout/fragment_search.xml -->

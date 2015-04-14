@@ -34,10 +34,16 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,6 +95,7 @@ public class MainActivity extends Activity {
                 String sessionid = sharedpreferences.getString(session, null);
                 SharedData.setCookie(csrfToken);
                 SharedData.setSessionid(sessionid);
+                new HttpAsyncGetOrgs().execute(SharedData.getAppUrl() + "organisations/");
                 startActivity(i);
                 finish();
         }
@@ -166,7 +173,7 @@ public class MainActivity extends Activity {
         return result;
 
     }
-    public static String POST(String url, String u, String p){
+    public String POST(String url, String u, String p){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -200,8 +207,8 @@ public class MainActivity extends Activity {
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
-          //  HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
-         //   httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+            HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+           httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
             // 8. Execute POST request to the given URL
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
@@ -238,7 +245,7 @@ public class MainActivity extends Activity {
             httpGet.setHeader("X-CSRFToken", csrfToken);
             SharedData.setCookie(csrfToken);
             SharedData.setSessionid(sessionid);
-
+            new HttpAsyncGetOrgs().execute(SharedData.getAppUrl() + "organisations/");
 
         } catch (Exception e) {
             Log.d("Check InputStream", e.getLocalizedMessage());
@@ -263,6 +270,121 @@ public class MainActivity extends Activity {
             response(result);
         }
     }
+
+    private void responseOrgList(String responsedata){
+        if(responsedata != null) {
+            Editor editor = sharedpreferences.edit();
+            editor.putString("organisations", responsedata);
+            editor.commit();
+            Toast.makeText(getBaseContext(), "Updated Organisations ", Toast.LENGTH_LONG).show();
+        }
+        else {
+            //orgs available for offline search
+        }
+    }
+
+    public class HttpAsyncGetOrgs extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            return getOrgData(urls[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            responseOrgList(result);
+        }
+    }
+
+    public String getOrgData(String url){
+        InputStream inputStream = null;
+        String result = "";
+        Log.d("Check Url = ", url);
+        try {
+
+            // 1. create HttpClient
+            DefaultHttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpGet httpPost = new HttpGet(url);
+
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("user", "test user");
+            jsonObject.put("org_name", "test");
+            jsonObject.put("org_type", "H");
+            jsonObject.put("description", "test org");
+            jsonObject.put("address", "test addr");
+            jsonObject.put("latitude", "100");
+            jsonObject.put("longitude","100");
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
+            // ObjectMapper mapper = new ObjectMapper();
+            // json = mapper.writeValueAsString(person);
+
+            // 5. set json to StringEntity
+            StringEntity se = new StringEntity(json, HTTP.UTF_8);
+            //Log.d("Check Se = ",se.toString());
+            // 6. set httpPost Entity
+            //  httpPost.setEntity(se);
+            String csrfToken = SharedData.getCookie();
+            Log.d("Check Token = ",csrfToken );
+            String session = SharedData.getSessionid();
+            Log.d("Check session = ",session );
+            // 7. Set some headers to inform server about the type of the content
+            httpPost.setHeader("X-CSRFToken", csrfToken);
+            String urlauth = SharedData.getAppUrl();
+            urlauth = urlauth + "auth/";
+            httpPost.setHeader("Referer", urlauth);
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+
+            final BasicCookieStore cookieStore =  new BasicCookieStore();
+
+            BasicClientCookie csrf_cookie = new BasicClientCookie("csrftoken", csrfToken);
+            BasicClientCookie csrf_cookie1 = new BasicClientCookie("sessionid", session);
+            urlauth = SharedData.getAppUrl();
+            csrf_cookie.setDomain(SharedData.getCookieDomain());
+            csrf_cookie1.setDomain(SharedData.getCookieDomain());
+            cookieStore.addCookie(csrf_cookie);
+            cookieStore.addCookie(csrf_cookie1);
+
+            HttpContext localContext = new BasicHttpContext();
+            localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+
+
+
+            HttpHost proxy = new HttpHost("proxy.iiit.ac.in", 8080);
+            httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+            Log.d("Check httpost = ", httpPost.toString());
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost, localContext);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+
+            Log.d("Check Result = ",result);
+
+        } catch (Exception e) {
+            Log.d("Check InputStream", e.getLocalizedMessage());
+        }
+
+        // 11. return result
+        return result;
+    }
+
     public boolean isConnected(){
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
