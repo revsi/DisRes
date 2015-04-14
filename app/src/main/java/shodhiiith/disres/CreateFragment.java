@@ -162,18 +162,50 @@ public class CreateFragment extends Fragment {
     public void landslide_sos(View v)
     {
         Toast.makeText(getActivity(), "Landslide SOS sent ", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"LS", lati, longi);
     }
     public void cyclone_sos(View v)
     {
         Toast.makeText(getActivity(), "Cyclone SOS sent ", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"CYC", lati, longi);
     }
     public void tsunami_sos(View v)
     {
         Toast.makeText(getActivity(), "Tsunami SOS sent ", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"TSU", lati, longi);
     }
     public void flood_sos(View v)
     {
         Toast.makeText(getActivity(), "Flood SOS sent ", Toast.LENGTH_SHORT).show();
+        String url = SharedData.getAppUrl();
+        url = url + "sos/";
+        // call AsynTask to perform network operation on separate thread
+        Location location = getCurrentPosition();
+        String lati = (String.format("%.6f",location.getLatitude()));
+        String longi = String.format("%.6f",location.getLongitude());
+        new HttpAsyncTask()
+                .execute(url,"FL", lati, longi);
     }
 
 
