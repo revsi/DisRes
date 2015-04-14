@@ -111,10 +111,12 @@ public class ReadFragment extends Fragment {
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE); //getSystemService(LOCATION_SERVICE);
             Criteria criteria   = new Criteria();
             String bestProvider = locationManager.getBestProvider(criteria, false);
-            Location location   = locationManager.getLastKnownLocation(bestProvider);
-          //  LatLng posLatLon    = new LatLng(location.getLatitude(), location.getLongitude());
+            Location location   = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f);
+
+            // LatLng posLatLon    = new LatLng(location.getLatitude(), location.getLongitude());
             //Toast.makeText(getActivity().getApplicationContext(), "position: "+ location.getLatitude() + "," + location.getLongitude(), Toast.LENGTH_SHORT).show();
-//            mMap.moveCamera(cameraUpdate);
+           mMap.moveCamera(cameraUpdate);
         }
     }
 

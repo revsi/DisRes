@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpHost;
@@ -151,19 +152,19 @@ public class CreateFragment extends Fragment {
             }
 
         });
-
-
 		return rootView;
 	}
 
+
     private Location getCurrentPosition(){
         // location details
-        LocationManager locationManager     = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria   = new Criteria();
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
-        Location location   = locationManager.getLastKnownLocation(bestProvider);
-        Log.v("d","check");
+        Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         System.out.println(location);
+       // return location;
+        Log.d("check", location.toString());
         return location;
     }
 
@@ -174,7 +175,8 @@ public class CreateFragment extends Fragment {
         url = url + "sos/";
         // call AsynTask to perform network operation on separate thread
         Location location = getCurrentPosition();
-        String lati = (String.format("%.6f",location.getLatitude()));
+        Log.d("hey","hello");
+        String lati = String.format("%.6f",location.getLatitude());
         String longi = String.format("%.6f",location.getLongitude());
         new HttpAsyncTask()
                 .execute(url,"EQ", lati, longi);

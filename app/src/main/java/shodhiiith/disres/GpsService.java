@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -119,7 +120,20 @@ public class GpsService extends Service implements LocationListener {
         // if reaching here means, location was not available, so setting the
         // flag as false
         isLocationAvailable = false;
-        return null;
+        while(!isLocationAvailable){
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, TIME, DISTANCE, this);
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, TIME, DISTANCE, this);
+            if(mLocationManager != null)
+            {
+                isLocationAvailable = true;
+            }
+        }
+        Criteria criteria = new Criteria();
+        String bestProvider = mLocationManager.getBestProvider(criteria, true);
+        mLocation = mLocationManager.getLastKnownLocation(bestProvider);
+    return mLocation;
     }
 
     /**

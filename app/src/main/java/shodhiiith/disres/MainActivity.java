@@ -106,8 +106,14 @@ public class MainActivity extends Activity {
         String url = SharedData.getAppUrl();
         url = url + "auth/";
         // call AsynTask to perform network operation on separate thread
-        new HttpAsyncTask()
-                .execute(url);
+        if(isConnected()) {
+            new HttpAsyncTask()
+                    .execute(url);
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+        }
 
     }
 
