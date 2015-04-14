@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
         password = (EditText)findViewById(R.id.passwordtxt);
         usernamereg = (EditText)findViewById(R.id.usernametxtreg);
         passwordreg = (EditText)findViewById(R.id.passwordtxtreg);
-        emailreg = (EditText)findViewById(R.id.usernametxtreg);
+        emailreg = (EditText)findViewById(R.id.emailtxtreg);
 
 	}
 
