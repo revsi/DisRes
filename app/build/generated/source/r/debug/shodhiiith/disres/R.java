@@ -1774,7 +1774,6 @@ containing a value of this type.
         public static final int donate_with_google=0x7f0b002f;
         public static final int drawer_layout=0x7f0b0054;
         public static final int dropdown=0x7f0b0022;
-        public static final int editText=0x7f0b006e;
         public static final int editText5=0x7f0b0059;
         public static final int edit_query=0x7f0b0048;
         public static final int emailtxtreg=0x7f0b0067;
@@ -1803,6 +1802,7 @@ containing a value of this type.
         public static final int never=0x7f0b001f;
         public static final int none=0x7f0b000e;
         public static final int normal=0x7f0b000a;
+        public static final int obs=0x7f0b006e;
         public static final int passwordtxt=0x7f0b0062;
         public static final int passwordtxtreg=0x7f0b0069;
         public static final int production=0x7f0b0026;

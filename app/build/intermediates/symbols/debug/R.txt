@@ -500,7 +500,6 @@ int id disableHome 0x7f0b000c
 int id donate_with_google 0x7f0b002f
 int id drawer_layout 0x7f0b0054
 int id dropdown 0x7f0b0022
-int id editText 0x7f0b006e
 int id editText5 0x7f0b0059
 int id edit_query 0x7f0b0048
 int id emailtxtreg 0x7f0b0067
@@ -529,6 +528,7 @@ int id monochrome 0x7f0b0032
 int id never 0x7f0b001f
 int id none 0x7f0b000e
 int id normal 0x7f0b000a
+int id obs 0x7f0b006e
 int id passwordtxt 0x7f0b0062
 int id passwordtxtreg 0x7f0b0069
 int id production 0x7f0b0026
