@@ -6,9 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
@@ -40,15 +37,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.MarkerOptions;
+import shodhiiith.disres.R;
 
 public class Report extends Fragment {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     Button btnSelect;
     ImageView ivImage;
-    private MapView mMapView;
-    private GoogleMap mMap;
-    private Bundle mBundle;
     Bitmap bm;;
 
     public Report() {
@@ -79,55 +74,23 @@ public class Report extends Fragment {
             }
         });
         ivImage = (ImageView) rootView.findViewById(R.id.ivImage);
-        mMapView = (MapView) rootView.findViewById(R.id.mapview2);
-        mMapView.onCreate(mBundle);
-        setUpMapIfNeeded(rootView);
 		return rootView;
 	}
 
-    private void setUpMapIfNeeded(View inflatedView) {
-        if (mMap == null) {
-            mMap = ((MapView) inflatedView.findViewById(R.id.mapview2)).getMap();
-            if (mMap != null) {
-                mMap.setMyLocationEnabled(true);
-                mMap.setBuildingsEnabled(true);
-                mMap.setTrafficEnabled(true);
-                setUpMap();
-            }
-        }
-    }
-    private void setUpMap() {
-        if(mMap.isMyLocationEnabled()){
-            mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
-                //Toast.makeText(getApplicationContext(), .toString(), Toast.LENGTH_LONG).show();
-                @Override
-                public void onMyLocationChange(Location arg0) {
 
-                    // TODO Auto-generated method stub
-                 //   CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 14.0f);
-                 //   mMap.moveCamera(cameraUpdate);
-                  //  mMap.addMarker(new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!"));
-                }
-
-            });
-        }
-    }
     @Override
     public void onResume() {
         super.onResume();
-        mMapView.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mMapView.onPause();
     }
 
     @Override
     public void onDestroy() {
-        mMapView.onDestroy();
         super.onDestroy();
     }
     private void selectImage() {
