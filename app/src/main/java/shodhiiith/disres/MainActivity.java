@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
         }
         else
         {
-            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -143,10 +143,10 @@ public class MainActivity extends Activity {
         }
 
         if (status.equalsIgnoreCase("invalid credentials")){
-            Toast.makeText(getBaseContext(), "Invalid credentials, Try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Invalid credentials, Try again", Toast.LENGTH_SHORT).show();
         }
         else if (status.equalsIgnoreCase("logged in")){
-            Toast.makeText(getBaseContext(), "Successful Login", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Successful Login", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this,shodhiiith.disres.
                     Welcome.class);
             String csrftoken  = SharedData.getCookie();
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
             finish();
         }
         else{
-            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -276,24 +276,24 @@ public class MainActivity extends Activity {
         }
 
         if (status.equalsIgnoreCase(sharedpreferences.getString(namereg,null))){
-            Toast.makeText(getBaseContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
             Editor editor = sharedpreferences.edit();
             editor.putString(name, sharedpreferences.getString(namereg,null));
             editor.putString(pass, sharedpreferences.getString(passreg,null));
             editor.commit();
             String url = SharedData.getAppUrl();
             url = url + "auth/";
-            Toast.makeText(getBaseContext(), "Logging In .. ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Logging In .. ", Toast.LENGTH_SHORT).show();
             if(isConnected()) {
                 new HttpAsyncTask()
                         .execute(url);
             }
             else {
-                Toast.makeText(getBaseContext(), "No Network Connectivity", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "No Network Connectivity", Toast.LENGTH_SHORT).show();
             }
         }
         else{
-            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -336,7 +336,7 @@ public class MainActivity extends Activity {
             Editor editor = sharedpreferences.edit();
             editor.putString("organisations", responsedata);
             editor.commit();
-            Toast.makeText(getBaseContext(), "Updated Organisations ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Updated Organisations ", Toast.LENGTH_SHORT).show();
         }
         else {
             //orgs available for offline search
@@ -416,7 +416,7 @@ public class MainActivity extends Activity {
         editor.commit();
         String url = SharedData.getAppUrl();
         url = url + "users/";
-        Toast.makeText(getBaseContext(), "Registering....", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Registering....", Toast.LENGTH_SHORT).show();
 
         // call AsynTask to perform network operation on separate thread
         if (isConnected()) {
@@ -424,7 +424,7 @@ public class MainActivity extends Activity {
                     .execute(url);
         }
         else {
-            Toast.makeText(getApplicationContext(),"No Network Connectivity", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"No Network Connectivity", Toast.LENGTH_SHORT).show();
         }
     }
 

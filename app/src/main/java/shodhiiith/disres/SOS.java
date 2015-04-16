@@ -61,7 +61,7 @@ public class SOS extends Fragment {
                     earthquake_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -76,7 +76,7 @@ public class SOS extends Fragment {
                     flood_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,7 +91,7 @@ public class SOS extends Fragment {
                     landslide_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -106,7 +106,7 @@ public class SOS extends Fragment {
                     fire_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -121,7 +121,7 @@ public class SOS extends Fragment {
                     tsunami_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,7 +135,7 @@ public class SOS extends Fragment {
                     cyclone_sos(v);
                 }
                 else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -248,10 +248,10 @@ public class SOS extends Fragment {
         }
 
         if (status.equalsIgnoreCase("Emergency SOS")){
-            Toast.makeText(getActivity().getApplicationContext(), "SOS successfully Sent", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "SOS successfully Sent", Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong , Check your network connectivity", Toast.LENGTH_SHORT).show();
         }
 
     }

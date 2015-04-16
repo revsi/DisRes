@@ -19,7 +19,7 @@ public class HardData {
     }
     public Map<String, List<Address>> getHardCodedData(){
         List<Address> affectedAreas = new ArrayList<Address>();
-       // affectedAreas.add(setAddress(-----, -----));
+        affectedAreas.add(setAddress(17.3949713,78.4839672));
         List<Address> healthCare = new ArrayList<Address>();
         healthCare.add(setAddress(17.44219, 78.3587));
         healthCare.add(setAddress(17.450219, 78.364239));
